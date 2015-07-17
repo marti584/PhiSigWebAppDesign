@@ -19,6 +19,8 @@ if (login_check($mysqli) == true) {
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/JavaScript" src="js/sha512.js"></script> 
+    <script type="text/JavaScript" src="js/forms.js"></script> 
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -33,7 +35,22 @@ if (login_check($mysqli) == true) {
         if (isset($_GET['error'])) {
             echo '<p class="error">Error Logging In!</p>';
         }
-        ?> 
+
+        if (login_check($mysqli) == true) {
+          echo '<div class="alert">'.
+                          '<button type="button" class="close" data-dismiss="alert">×</button>'.
+                          '<strong>Warning!</strong> Currently logged '. $logged .' as '.htmlentities($_SESSION['username']).
+                          '. Do you want to change user? <a href="includes/logout.php">Log out</a>.'.
+                        '</div>';
+            //             echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
+ 
+            // echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
+        } else {
+                        // echo '<p>Currently logged ' . $logged . '.</p>';
+                        // echo "<p>If you don't have a login, please <a href='register.php'>register</a></p>";
+                }
+    ?>
+
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h1 class="text-center">Login</h1>
@@ -47,21 +64,11 @@ if (login_check($mysqli) == true) {
               <input type="password" class="form-control input-lg" placeholder="Password" name="password" id="password">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-lg btn-block" onclick="formhash(this.form, this.form.password);">Sign In</button>
-              <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
+              <button class="btn btn-primary btn-lg btn-block" onclick="formhash(this.form, this.form.password);" value="Login">Sign In</button>
+              <span class="pull-right"><a href="register.php">Register</a></span><span><a href="#">Need help?</a></span>
             </div>
           </form>
       </div>
-      <?php
-        if (login_check($mysqli) == true) {
-                        echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
- 
-            echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
-        } else {
-                        echo '<p>Currently logged ' . $logged . '.</p>';
-                        echo "<p>If you don't have a login, please <a href='register.php'>register</a></p>";
-                }
-?>
       <div class="modal-footer">
           <div class="col-md-12">
           <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
