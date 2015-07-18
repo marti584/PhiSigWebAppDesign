@@ -1,4 +1,4 @@
-<?php
+-<?php
 include_once 'db_connect.php';
 include_once 'functions.php';
  
@@ -10,7 +10,7 @@ if (isset($_POST['email'], $_POST['p'])) {
  
     if (login($email, $password, $mysqli) == true) {
         // Login success 
-        header('Location: ../protected_page.php');
+        header('Location: ../landing-page.php');
     } else {
         // Login failed 
         header('Location: ../index.php?error=1');

@@ -1,6 +1,6 @@
 <?php
-include_once 'db_connect.php';
-include_once 'psl-config.php';
+include_once 'includes/db_connect.php';
+include_once 'includes/psl-config.php';
  
 $error_msg = "";
  
@@ -22,7 +22,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     }
  
     // Username validity and password validity have been checked client side.
-    // This should should be adequate as nobody gains any advantage from
+    // This should be adequate as nobody gains any advantage from
     // breaking these rules.
     //
  
@@ -38,12 +38,12 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         if ($stmt->num_rows == 1) {
             // A user with this email address already exists
             $error_msg .= '<p class="error">A user with this email address already exists.</p>';
-                        $stmt->close();
+            $stmt->close();
         }
-                $stmt->close();
+        $stmt->close();
     } else {
         $error_msg .= '<p class="error">Database error Line 39</p>';
-                $stmt->close();
+        $stmt->close();
     }
  
     // check existing username
@@ -55,16 +55,16 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $stmt->execute();
         $stmt->store_result();
  
-                if ($stmt->num_rows == 1) {
-                        // A user with this username already exists
-                        $error_msg .= '<p class="error">A user with this username already exists</p>';
-                        $stmt->close();
-                }
-                $stmt->close();
-        } else {
-                $error_msg .= '<p class="error">Database error line 55</p>';
+        if ($stmt->num_rows == 1) {
+                // A user with this username already exists
+                $error_msg .= '<p class="error">A user with this username already exists</p>';
                 $stmt->close();
         }
+        $stmt->close();
+    } else {
+            $error_msg .= '<p class="error">Database error line 55</p>';
+            $stmt->close();
+    }
  
     // TODO: 
     // We'll also have to account for the situation where the user doesn't have

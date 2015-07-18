@@ -6,6 +6,7 @@ sec_session_start();
  
 if (login_check($mysqli) == true) {
     $logged = 'in';
+    header('Location: landing-page.php');
 } else {
     $logged = 'out';
 }
@@ -15,7 +16,7 @@ if (login_check($mysqli) == true) {
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>Bootstrap Login Form</title>
+		<title>Login Form</title>
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +34,10 @@ if (login_check($mysqli) == true) {
   <div class="modal-content">
     <?php
         if (isset($_GET['error'])) {
-            echo '<p class="error">Error Logging In!</p>';
+            echo '<div class="alert alert-error">'.
+                          '<button type="button" class="close" data-dismiss="alert">×</button>'.
+                          '<strong>Error!</strong> Login Failed.'.
+                        '</div>';
         }
 
         if (login_check($mysqli) == true) {
@@ -42,15 +46,8 @@ if (login_check($mysqli) == true) {
                           '<strong>Warning!</strong> Currently logged '. $logged .' as '.htmlentities($_SESSION['username']).
                           '. Do you want to change user? <a href="includes/logout.php">Log out</a>.'.
                         '</div>';
-            //             echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
- 
-            // echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
-        } else {
-                        // echo '<p>Currently logged ' . $logged . '.</p>';
-                        // echo "<p>If you don't have a login, please <a href='register.php'>register</a></p>";
-                }
+        }
     ?>
-
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h1 class="text-center">Login</h1>
